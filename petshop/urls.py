@@ -15,7 +15,19 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from petapp import views
+from django.conf import settings
+from django.conf.urls.static import static
+from django.urls import path
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    path('petshop/list/',views.pet_list ,name='pet-list'),
+    path('petshop/create/',views.pet_create ,name='pet-create'),
+    path('petshop/detail/<int:pet_id>/',views.pet_detail ,name='pet-detail'),
+    path('petshop/update/<int:pet_id>/',views.pet_update ,name='pet-update'),
+    path('petshop/delete/<int:pet_id>/',views.pet_delete ,name='pet-delete'),
 ]
+
+urlpatterns+=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
